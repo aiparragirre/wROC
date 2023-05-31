@@ -1,6 +1,6 @@
 # wroc
 
-In this repository, we put available the simulation study (code and results) of the paper entitled "Estimation of the ROC curve and the area under it with complex survey data". The R package `wROC` can also be installed from this repository.
+In this repository, we put available the simulation study (code and results) of the paper entitled "Estimation of the ROC curve and the area under it with complex survey data" (Iparragirre A., Barrio I., Arostegui I.) (submitted). The R package `wROC` can also be installed from this repository.
 
 ## R package
 
