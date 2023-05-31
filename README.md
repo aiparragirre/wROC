@@ -2,6 +2,22 @@
 
 In this repository, we put available the simulation study (code and results) of the paper entitled "Estimation of the ROC curve and the area under it with complex survey data".
 
+## R package
+
+The R package to plot weighted estimates of the ROC curves and to obtain weighted estimates of the AUC is available in the folder `wroc`. Run the following code to install the package in R:
+
+```{r}
+library(devtools)
+install_github("aiparragirre/wroc/wroc")
+```
+
+Two functions can be used:
+
+- `wroc`: to plot the ROC curves.
+- `wauc`: to estimate the AUC.
+
+
+
 ## R code - Simulation study and application
 
 In this folder, it is avaialble all the code and results related to the simulation study. In particular:
