@@ -1,3 +1,5 @@
+# Simulation study and application
+
 In this folder, it is avaialble all the code and results related to the simulation study. In particular:
 
 - In the folder `Functions` all the functions needed to run the simulation study are available.
