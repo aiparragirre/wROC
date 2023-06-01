@@ -17,7 +17,8 @@ The following functions are available:
 - `wroc`: to plot the ROC curve considering sampling weights.
 - `wauc`: to estimate the AUC considering sampling weights.
 
-### Installation of the package in R:
+
+### Installation of the R package
 
 Run the following code to install the package in R (package `devtools` required to run the code):
 
@@ -26,7 +27,7 @@ library(devtools)
 install_github("aiparragirre/wROC/wROC")
 ```
 
-### Usage
+### Usage
 
 We need information of three elements for each unit in the sample in order to estimate the ROC curve (`wroc()` function) and AUC (`wauc()` function):
 
