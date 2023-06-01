@@ -17,7 +17,7 @@ The following functions are available:
 - `wroc`: to plot the ROC curve considering sampling weights.
 - `wauc`: to estimate the AUC considering sampling weights.
 
-This package will be updated shortly, in order to incorporate optimal cut-off point estimates for individual classification, as proposed in the following paper:
+This package **will be updated soon**, in order to incorporate optimal cut-off point estimates for individual classification, as proposed in the following paper:
 
 Iparragirre, Amaia; Barrio, Irantzu; Aramendi, Jorge; Arostegui, Inmaculada. “Estimation of cut-off points under complex-sampling design data”. SORT-Statistics and Operations Research Transactions, 2022, Vol. 46, Num. 1, pp. 137-158, https://doi.org/10.2436/20.8080.02.121.
 
