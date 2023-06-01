@@ -2,7 +2,7 @@
 
 In this folder there are available all the functions needed to run the simulation study.
 
-- `simFunction()`: is the main function.
+- `simFunction.R` contains the main function to run the simulation study.
 - In the folder `Helpers` we can find three scripts containing different functions to:
   - Simulate the pseudo-population.
   - Sample the pseudo-population.
