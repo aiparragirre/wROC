@@ -9,13 +9,17 @@ The goal of this repository is two-fold:
 
 ## R package
 
-The R package `wROC` to plot weighted estimates of the ROC curves and to obtain weighted estimates of the AUC is available in the folder `wROC`. 
+The R package `wROC` to plot weighted estimates of the ROC curves and to obtain weighted estimates of the AUC is available in the folder `wROC`.
 
 The following functions are available:
 
 - `sew`, `spw`: to estimate sensitivity and specificity parameters for a specific cut-off point considering sampling weights.
 - `wroc`: to plot the ROC curve considering sampling weights.
 - `wauc`: to estimate the AUC considering sampling weights.
+
+This package will be updated shortly, in order to incorporate optimal cut-off point estimates for individual classification, as proposed in the following paper:
+
+Iparragirre, Amaia; Barrio, Irantzu; Aramendi, Jorge; Arostegui, Inmaculada. “Estimation of cut-off points under complex-sampling design data”. SORT-Statistics and Operations Research Transactions, 2022, Vol. 46, Num. 1, pp. 137-158, https://doi.org/10.2436/20.8080.02.121.
 
 
 ### Installation of the R package
@@ -35,7 +39,7 @@ We need information of three elements for each unit in the sample in order to es
 - `phat.var`: predicted probabilities of event.
 - `weights.var`: sampling weights.
 
-We can put these three vectors in a data frame, or save them separately in three different vectors.
+We can put these three vectors in a data frame, or save them separately in three different vectors. The data set `example_data_wroc` is set as an example in the package.
 
 We also need to define the tags for events and non-events (default are: `event = 1` and `nonevent = 0`).
 
@@ -54,8 +58,6 @@ wroc(response.var = example_data_wroc$y,
 Similarly, we can run the following code to estimate the AUC:
 
 ```{r}
-data(example_data_wroc)
-
 wauc(response.var = "y", phat.var = "phat", weights.var = "weights", data = example_data_wroc)
 
 # Or equivalently
@@ -63,6 +65,33 @@ wauc(response.var = example_data_wroc$y,
      phat.var = example_data_wroc$phat,
      weights.var = example_data_wroc$weights)
 ```
+We can also estimate the sensitivity (`sew()`) and specificity (`spw()`) parameters for a specific cut-off point considering sampling weights. For this purpose, we need to indicate the cut-off point we want to use in the function:
+
+```{r}
+
+# Specificity ----------------------------------------------------------
+
+spw(response.var = "y", phat.var = "phat", weights.var = "weights",
+    nonevent = 0, cutoff.point = 0.5, data = example_data_wroc)
+
+# Or equivalently
+spw(response.var = example_data_wroc$y,
+    phat.var = example_data_wroc$phat,
+    weights.var = example_data_wroc$weights,
+    nonevent = 0, cutoff.point = 0.5)
+   
+# Sensitivity ----------------------------------------------------------
+
+sew(response.var = "y", phat.var = "phat", weights.var = "weights",
+    event = 1, cutoff.point = 0.5, data = example_data_wroc)
+
+# Or equivalently
+sew(response.var = example_data_wroc$y,
+    phat.var = example_data_wroc$phat,
+    weights.var = example_data_wroc$weights,
+    event = 1, cutoff.point = 0.5)
+```
+
 
 ## R code - Simulation study and application
 
