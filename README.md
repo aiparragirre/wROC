@@ -1,11 +1,11 @@
 # wroc
 
-In this repository, we put available the simulation study (code and results) of the paper entitled "Estimation of the ROC curve and the area under it with complex survey data" (Iparragirre A., Barrio I., Arostegui I.) (submitted). The R package `wROC` can also be installed from this repository.
+In this repository, we put available the simulation study (code and results) of the paper entitled "Estimation of the ROC curve and the area under it with complex survey data" (Iparragirre A., Barrio I., Arostegui I.) (under review). The R package `wROC` can also be installed from this repository.
 
 The goal of this repository is two-fold:
 
 - To put publicly available the R package wROC. This package allows to estimate the ROC curve and AUC of logistic regression models fitted to complex survey data.
-- The simulation study (code and results) of the paper entitled "Estimation of the ROC curve and the area under it with complex survey data" (Iparragirre A., Barrio I., Arostegui I.) (submitted) can also be found.
+- The simulation study (code and results) of the paper entitled "Estimation of the ROC curve and the area under it with complex survey data" (Iparragirre A., Barrio I., Arostegui I.) (under review) can also be found.
 
 ## R package
 
