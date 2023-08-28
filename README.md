@@ -20,10 +20,9 @@ The following functions are available:
 
 The methodology proposed for the above-mentioned functions can be found in the following **references**:
 
-Iparragirre, Amaia; Barrio, Irantzu; Aramendi, Jorge; Arostegui, Inmaculada. “Estimation of cut-off points under complex-sampling design data”. SORT-Statistics and Operations Research Transactions, 2022, Vol. 46, Num. 1, pp. 137-158, https://doi.org/10.2436/20.8080.02.121.
+Iparragirre, A., Barrio, I., Aramendi, J. and Arostegui, I. (2022). Estimation of cut-off points under complex-sampling design data. *SORT-Statistics and Operations Research Transactions* **46**(1), 137--158.
 
-Iparragirre, Amaia; Barrio, Irantzu; Arostegui, Inmaculada. “Estimation of the ROC curve and the area under it with complex survey data”. *(under review)*
-
+Iparragirre, A., Barrio, I. and Arostegui, I. Estimation of the ROC curve and the area under it with complex survey data. *(under review)*
 
 ### Installation of the R package
 
