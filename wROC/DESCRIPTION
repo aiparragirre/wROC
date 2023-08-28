@@ -1,0 +1,16 @@
+Package: wROC
+Title: Estimation of the ROC Curve and the AUC for Complex Survey Data
+Version: 0.0.0.9000
+Authors@R: 
+    c(person("Amaia", "Iparragirre", , "amaia.iparragirre@ehu.eus", role = c("aut", "cre"),
+             comment = c(ORCID = "0000-0002-0660-6535")),
+      person("Irantzu", "Barrio", role = c("aut")),
+      person("Inmaculada", "Arostegui", role = c("aut")))
+Description: Estimate the receiver operating characteristic (ROC) curve, area under the curve (AUC) and optimal cut-off points for individual classification taking into account complex sampling designs when working with complex survey data.
+License: GPL (>= 3)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Depends: 
+    R (>= 2.10)
+LazyData: true
