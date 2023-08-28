@@ -4,7 +4,7 @@ In this repository, we put available the simulation study (code and results) of 
 
 The goal of this repository is two-fold:
 
-- To put publicly available the R package wROC. This package allows to estimate the ROC curve and AUC of logistic regression models fitted to complex survey data.
+- To put publicly available the R package `wROC`. This package allows to estimate the ROC curve and AUC of logistic regression models fitted to complex survey data. In addition, with this package, we can also obtain optimal cut-off points for individual classification considering sampling weights with complex survey data.
 - The simulation study (code and results) of the paper entitled "Estimation of the ROC curve and the area under it with complex survey data" (Iparragirre A., Barrio I., Arostegui I.) (under review) can also be found.
 
 ## R package
@@ -13,13 +13,16 @@ The R package `wROC` to plot weighted estimates of the ROC curves and to obtain 
 
 The following functions are available:
 
-- `sew`, `spw`: to estimate sensitivity and specificity parameters for a specific cut-off point considering sampling weights.
+- `wse`, `wsp`: to estimate sensitivity and specificity parameters for a specific cut-off point considering sampling weights.
 - `wroc`: to plot the ROC curve considering sampling weights.
 - `wauc`: to estimate the AUC considering sampling weights.
+- `wocp`: calculate optimal cut-off points for individual classification considering sampling weights.
 
-This package **will be updated soon**, in order to incorporate optimal cut-off point estimates for individual classification, as proposed in the following paper:
+The methodology proposed for the above-mentioned functions can be found in the following **references**:
 
 Iparragirre, Amaia; Barrio, Irantzu; Aramendi, Jorge; Arostegui, Inmaculada. “Estimation of cut-off points under complex-sampling design data”. SORT-Statistics and Operations Research Transactions, 2022, Vol. 46, Num. 1, pp. 137-158, https://doi.org/10.2436/20.8080.02.121.
+
+Iparragirre, Amaia; Barrio, Irantzu; Arostegui, Inmaculada. “Estimation of the ROC curve and the area under it with complex survey data”. *(under review)*
 
 
 ### Installation of the R package
@@ -35,13 +38,13 @@ install_github("aiparragirre/wROC/wROC")
 
 We need information of three elements for each unit in the sample in order to estimate the ROC curve (`wroc()` function) and AUC (`wauc()` function):
 
-- `response.var`: dichotomous response variable.
+- `response.var`: variable indicating the dichotomous response variable.
 - `phat.var`: predicted probabilities of event.
-- `weights.var`: sampling weights.
+- `weights.var`: variable indicating the sampling weights.
 
 We can put these three vectors in a data frame, or save them separately in three different vectors. The data set `example_data_wroc` is set as an example in the package.
 
-We also need to define the tags for events and non-events (default are: `event = 1` and `nonevent = 0`).
+We also need to define the tags for events and non-events (default are: `tag.event = 1` and `tag.nonevent = 0`).
 
 We can plot the ROC curve running as follows:
 
@@ -55,43 +58,79 @@ wroc(response.var = example_data_wroc$y,
      phat.var = example_data_wroc$phat,
      weights.var = example_data_wroc$weights)
 ```
+
+To save the numeric information about the curve, save it to an object. In addition, if the argument `plotit` is set to `plotit = FALSE`, then the ROC curve will not be drawn (default: `plotit = TRUE`):
+
+```{r}
+curve <- wroc(response.var = "y", phat.var = "phat", weights.var = "weights",
+              data = example_data_wroc, cutoff.method = "Youden",
+              plotit = FALSE)
+```
+
 Similarly, we can run the following code to estimate the AUC:
 
 ```{r}
 wauc(response.var = "y", phat.var = "phat", weights.var = "weights", data = example_data_wroc)
 
-# Or equivalently
+# Or equivalently:
 wauc(response.var = example_data_wroc$y,
      phat.var = example_data_wroc$phat,
      weights.var = example_data_wroc$weights)
 ```
-We can also estimate the sensitivity (`sew()`) and specificity (`spw()`) parameters for a specific cut-off point considering sampling weights. For this purpose, we need to indicate the cut-off point we want to use in the function:
+
+We can also estimate the sensitivity (`wse()`) and specificity (`wsp()`) parameters for a specific cut-off point considering sampling weights. For this purpose, we need to indicate the cut-off point we want to use in the function by means of the argument `cutoff.value`:
 
 ```{r}
 
 # Specificity ----------------------------------------------------------
 
-spw(response.var = "y", phat.var = "phat", weights.var = "weights",
-    nonevent = 0, cutoff.point = 0.5, data = example_data_wroc)
+wsp(response.var = "y", phat.var = "phat", weights.var = "weights",
+    tag.nonevent = 0, cutoff.value = 0.5, data = example_data_wroc)
 
-# Or equivalently
-spw(response.var = example_data_wroc$y,
+# Or equivalently:
+wsp(response.var = example_data_wroc$y,
     phat.var = example_data_wroc$phat,
     weights.var = example_data_wroc$weights,
-    nonevent = 0, cutoff.point = 0.5)
+    tag.nonevent = 0, cutoff.value = 0.5)
    
 # Sensitivity ----------------------------------------------------------
 
-sew(response.var = "y", phat.var = "phat", weights.var = "weights",
-    event = 1, cutoff.point = 0.5, data = example_data_wroc)
+wse(response.var = "y", phat.var = "phat", weights.var = "weights",
+    tag.event = 1, cutoff.value = 0.5, data = example_data_wroc)
 
 # Or equivalently
-sew(response.var = example_data_wroc$y,
+wse(response.var = example_data_wroc$y,
     phat.var = example_data_wroc$phat,
     weights.var = example_data_wroc$weights,
-    event = 1, cutoff.point = 0.5)
+    tag.event = 1, cutoff.value = 0.5)
 ```
 
+Finally, use the function `wocp()` to obtain optimal cut-off points for individual classification as proposed in: 
+
+Iparragirre, A., Barrio, I., Aramendi, J. and Arostegui, I. (2022). Estimation of cut-off points under complex-sampling design data. *SORT-Statistics and Operations Research Transactions* **46**(1), 137--158.
+
+Some functions of the package `OptimalCutpoints` have been modified in order them to consider sampling weights:
+
+Lopez-Raton, M., Rodriguez-Alvarez, M.X, Cadarso-Suarez, C. and Gude-Sampedro, F. (2014). OptimalCutpoints: An R Package for Selecting Optimal Cutpoints in Diagnostic Tests. *Journal of Statistical Software* **61**(8), 1--36.
+
+One of the methods proposed in the paper needs to be selected when running the function by means of the argument `method`: `Youden`, `MaxProdSpSe`, `ROC01` or `MaxEfficiency`.
+
+```{r}
+ocp <- wocp(response.var = "y", phat.var = "phat", weights.var = "weights",
+            tag.nonevent = 0, method = "Youden",
+            data = example_data_wroc)
+
+# Or equivalently
+ocp <- wocp(example_data_wroc$y, example_data_wroc$phat, example_data_wroc$weights,
+            tag.nonevent = 0, method = "Youden")
+```
+
+If you want to draw the optimal cut-off point in the ROC curve, then use the function `wroc()` and indicate the method by means of the argument `cutoff.method` as follows:
+
+```{r}
+wroc(response.var = "y", phat.var = "phat", weights.var = "weights",
+     data = example_data_wroc, cutoff.method = "Youden")
+```
 
 ## R code - Simulation study and application
 
