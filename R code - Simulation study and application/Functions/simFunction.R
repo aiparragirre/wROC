@@ -17,6 +17,7 @@ simFunction <- function(population,
   
   ps.model <- glm(formula, data = population, family=binomial())
   ps.model.auc <- pROC::roc(ps.model$y, ps.model$fitted.values)$auc[1]
+  ps.ptrue <- ps.model$fitted.values
   
 
   # Vectors for the estimated AUCs ------------------------------------------
@@ -68,7 +69,7 @@ simFunction <- function(population,
 
     # Fit the model -----------------------------------------------------------
     # select model.method == "unweighted" in case you want to fit the model ignoring the sampling design
-    # select model.model == "weighted" to fit the model considering the sampling design
+    # select model.method == "weighted" to fit the model considering the sampling design
 
     if(model.method=="unweighted"){
       
@@ -157,7 +158,8 @@ simFunction <- function(population,
   out$times <- list(unw = t.unw, pairw = t.pairw, w = t.w, ps = t.ps)
   out$m.data <- list(y = m.y, phat = m.phat, w = m.w)
   out$m.pop <- list(y = population[,as.character(formula[2])],
-                    phat = m.pop.phat)
+                    phat = m.pop.phat,
+                    pop.ptrue = ps.ptrue)
 
   class(out) <- "simauc"
   return(out)
