@@ -24,6 +24,7 @@ plot.simrocs <- function(obj, main){
     # Population information (w = 1)
     pop.y = get(obj)[["m.pop"]][["y"]]
     pop.phat = get(obj)[["m.pop"]][["phat"]][,r]
+    pop.ptrue = get(obj)[["m.pop"]][["pop.ptrue"]]
     pop <- data.frame(y = pop.y, phat = pop.phat)
     pop$w <- rep(1, nrow(pop))
     
@@ -71,8 +72,8 @@ plot.simrocs <- function(obj, main){
            xlab = "1-Spw(c)", ylab = "Sew(c)", main = main, col = scales::alpha("#588FC7",0.25))
       abline(a = 0, b = 1, lty = 2, col = "gray")
       legend(x = "bottomright", lty = c(1,1,1),
-             legend = c("True (population)","Weighted", "Unweighted"), bty = "n",
-             col = c("black","#588FC7","#DE912C"))
+             legend = c("pop","unw", "w", "theo"), bty = "n",
+             col = c("black","#DE912C","#588FC7", "red"), lwd = 1.5)
     } else {
       points(x = plot.df$inv.spw.v, y = plot.df$sew.v, type = "l", col = scales::alpha("#588FC7",0.25))
     }
@@ -84,6 +85,22 @@ plot.simrocs <- function(obj, main){
     points(x = plot.df.pop$inv.sp.pop, y = plot.df.pop$se.pop, type = "l", col=scales::alpha("black",0.25))
     
   }
+
+  # Calculate population se and sp: for the model fitted to the finite population
+  pop.ptrue <- sort(unique(pop[,"ptrue"]))
+  pop.ptrue.lower <- pop.phat[1:(length(pop.ptrue)-1)]
+  pop.ptrue.upper <- pop.phat[2:length(pop.ptrue)]
+  pop.ptrue.cutoffs <- c(0, (pop.ptrue.lower+pop.ptrue.upper)/2, 1)
+  se.pop.ptrue <- unlist(lapply(pop.ptrue.cutoffs, sew, data = pop, response.var = "y", event = 1, phat.var = "ptrue", weight.var = "w"))
+  sp.pop.ptrue <- unlist(lapply(pop.ptrue.cutoffs, spw, data = pop, response.var = "y", nonevent = 0, phat.var = "ptrue", weight.var = "w"))
+  inv.sp.pop.ptrue <- 1 - sp.pop.ptrue
+  plot.df.pop.ptrue <- data.frame(se.pop.ptrue, inv.sp.pop.ptrue)
+  
+  # True finite population model curve
+  points(x = plot.df.pop.ptrue$inv.sp.pop.ptrue, 
+         y = plot.df.pop.ptrue$se.pop.ptrue, 
+         type = "l", col="red")
+  
   
   dev.off()
   
