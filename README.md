@@ -7,6 +7,8 @@ The goal of this repository is two-fold:
 - To put publicly available the R package `wROC`. This package allows to estimate the ROC curve and AUC of logistic regression models fitted to complex survey data. In addition, with this package, we can also obtain optimal cut-off points for individual classification considering sampling weights with complex survey data.
 - The simulation study (code and results) of the paper entitled "Estimation of the ROC curve and the area under it with complex survey data" (Iparragirre A., Barrio I., Arostegui I.) can also be found.
 
+**UPDATE of the package coming soon:** Optimism Correction of the AUC with Complex Survey Data (https://link.springer.com/chapter/10.1007/978-3-031-65723-8_7). *Expecting: September 2024.*
+
 ## R package
 
 The R package `wROC` to plot weighted estimates of the ROC curves and to obtain weighted estimates of the AUC is available in the folder `wROC`.
