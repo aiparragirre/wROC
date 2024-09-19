@@ -24,11 +24,11 @@ The following functions are available:
 
 The methodology proposed for the above-mentioned functions can be found in the following **references**:
 
-Iparragirre, A., Barrio, I., Aramendi, J. and Arostegui, I. (2022). Estimation of cut-off points under complex-sampling design data. *SORT-Statistics and Operations Research Transactions* **46**(1), 137--158. (https://doi.org/10.2436/20.8080.02.121)
+- Iparragirre, A., Barrio, I., Aramendi, J. and Arostegui, I. (2022). Estimation of cut-off points under complex-sampling design data. *SORT-Statistics and Operations Research Transactions* **46**(1), 137--158. (https://doi.org/10.2436/20.8080.02.121)
 
-Iparragirre, A., Barrio, I. and Arostegui, I. (2023). Estimation of the ROC curve and the area under it with complex survey data. *Stat* **12**(1), e635. (https://doi.org/10.1002/sta4.635)
+- Iparragirre, A., Barrio, I. and Arostegui, I. (2023). Estimation of the ROC curve and the area under it with complex survey data. *Stat* **12**(1), e635. (https://doi.org/10.1002/sta4.635)
 
-Iparragirre, A. and Barrio, I. (2024). Optimism Correction of the AUC with Complex Survey Data. In: Einbeck, J., Maeng, H., Ogundimu, E., Perrakis, K. (eds) Developments in Statistical Modelling. IWSM 2024. Contributions to Statistics. Springer, Cham. (https://doi.org/10.1007/978-3-031-65723-8_7) 
+- Iparragirre, A. and Barrio, I. (2024). Optimism Correction of the AUC with Complex Survey Data. In: Einbeck, J., Maeng, H., Ogundimu, E., Perrakis, K. (eds) Developments in Statistical Modelling. IWSM 2024. Contributions to Statistics. Springer, Cham. (https://doi.org/10.1007/978-3-031-65723-8_7) 
 
 ### Installation of the R package
 
