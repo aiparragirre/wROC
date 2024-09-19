@@ -7,7 +7,7 @@ The goal of this repository is two-fold:
 - To put publicly available the R package `wROC`. This package allows to estimate the ROC curve and AUC of logistic regression models fitted to complex survey data. In addition, with this package, we can also obtain optimal cut-off points for individual classification considering sampling weights with complex survey data.
 - The simulation study (code and results) of the paper entitled "Estimation of the ROC curve and the area under it with complex survey data" (Iparragirre A., Barrio I., Arostegui I.) can also be found.
 
-**UPDATE of the package coming soon:** Optimism Correction of the AUC with Complex Survey Data (https://link.springer.com/chapter/10.1007/978-3-031-65723-8_7). *Expecting: September 2024.*
+** The package has now been UPDATED ** to enable the optimism correction of the AUC with Complex Survey Data by means of replicate weights (see the related contribution on: https://link.springer.com/chapter/10.1007/978-3-031-65723-8_7).
 
 ## R package
 
@@ -18,14 +18,17 @@ The following functions are available:
 - `wse`, `wsp`: estimate sensitivity and specificity parameters for a specific cut-off point considering sampling weights.
 - `wroc`: estimate the ROC curve considering sampling weights.
 - `wauc`: estimate the AUC considering sampling weights.
+- `corrected.wauc`: correct the optimism of the weighted estimate of the AUC by means of replicate weights.
 - `wocp`: calculate optimal cut-off points for individual classification considering sampling weights.
 - `wroc.plot`: plot the ROC curve.
 
 The methodology proposed for the above-mentioned functions can be found in the following **references**:
 
-Iparragirre, A., Barrio, I., Aramendi, J. and Arostegui, I. (2022). Estimation of cut-off points under complex-sampling design data. *SORT-Statistics and Operations Research Transactions* **46**(1), 137--158.
+Iparragirre, A., Barrio, I., Aramendi, J. and Arostegui, I. (2022). Estimation of cut-off points under complex-sampling design data. *SORT-Statistics and Operations Research Transactions* **46**(1), 137--158. (https://doi.org/10.2436/20.8080.02.121)
 
 Iparragirre, A., Barrio, I. and Arostegui, I. (2023). Estimation of the ROC curve and the area under it with complex survey data. *Stat* **12**(1), e635. (https://doi.org/10.1002/sta4.635)
+
+Iparragirre, A. and Barrio, I. (2024). Optimism Correction of the AUC with Complex Survey Data. In: Einbeck, J., Maeng, H., Ogundimu, E., Perrakis, K. (eds) Developments in Statistical Modelling. IWSM 2024. Contributions to Statistics. Springer, Cham. (https://doi.org/10.1007/978-3-031-65723-8_7) 
 
 ### Installation of the R package
 
@@ -40,7 +43,7 @@ install_github("aiparragirre/wROC/wROC")
 
 ### Usage
 
-We need information of three elements for each unit in the sample in order to estimate the ROC curve (`wroc()` function) and AUC (`wauc()` function):
+We need information on three elements for each unit in the sample in order to estimate the ROC curve (`wroc()` function) and AUC (`wauc()` function):
 
 - `response.var`: variable indicating the dichotomous response variable.
 - `phat.var`: predicted probabilities of event.
@@ -80,6 +83,36 @@ auc.obj <- wauc(response.var = example_data_wroc$y,
                 tag.event = 1, tag.nonevent = 0)
 ```
 
+We can correct the optimism of the weighted estimate of the AUC by means of replicate weights, as proposed in Iparragirre and Barrio (2024), by means of the `corrected.wauc()` function. For this purpose, we additionally need information on the covariates and the sampling design. Here is an example of the usage of this function:
+
+```{r}
+
+data(example_variables_wroc)
+mydesign <- survey::svydesign(ids = ~cluster, strata = ~strata,
+                              weights = ~weights, nest = TRUE,
+                              data = example_variables_wroc)
+m <- survey::svyglm(y ~ x1 + x2 + x3 + x4 + x5 + x6, design = mydesign,
+                    family = quasibinomial())
+phat <- predict(m, newdata = example_variables_wroc, type = "response")
+myaucw <- wauc(response.var = example_variables_wroc$y, phat.var = phat,
+               weights.var = example_variables_wroc$weights)
+
+# Correction of the AUCw:
+set.seed(1)
+cor <- corrected.wauc(data = example_variables_wroc,
+                      formula = y ~ x1 + x2 + x3 + x4 + x5 + x6,
+                      tag.event = 1, tag.nonevent = 0,
+                      weights.var = "weights", strata.var = "strata", cluster.var = "cluster",
+                      method = "dCV", dCV.method = "pooling", k = 10, R = 20)
+# Or equivalently:
+set.seed(1)
+cor <- corrected.wauc(design = mydesign,
+                      formula = y ~ x1 + x2 + x3 + x4 + x5 + x6,
+                      tag.event = 1, tag.nonevent = 0,
+                      method = "dCV", dCV.method = "pooling", k = 10, R = 20)
+
+```
+
 We can also estimate the sensitivity (`wse()`) and specificity (`wsp()`) parameters for a specific cut-off point considering sampling weights. For this purpose, we need to indicate the cut-off point we want to use in the function by means of the argument `cutoff.value`:
 
 ```{r}
@@ -117,11 +150,7 @@ se.obj <- wse(response.var = example_data_wroc$y,
               cutoff.value = 0.5)
 ```
 
-Finally, use the function `wocp()` to obtain optimal cut-off points for individual classification as proposed in: 
-
-Iparragirre, A., Barrio, I., Aramendi, J. and Arostegui, I. (2022). Estimation of cut-off points under complex-sampling design data. *SORT-Statistics and Operations Research Transactions* **46**(1), 137--158.
-
-Some functions of the package `OptimalCutpoints` have been modified in order them to consider sampling weights:
+Finally, use the function `wocp()` to obtain optimal cut-off points for individual classification as proposed in Iparragirre et al (2022). Some functions of the package `OptimalCutpoints` have been modified in order for them to consider sampling weights:
 
 Lopez-Raton, M., Rodriguez-Alvarez, M.X, Cadarso-Suarez, C. and Gude-Sampedro, F. (2014). OptimalCutpoints: An R Package for Selecting Optimal Cutpoints in Diagnostic Tests. *Journal of Statistical Software* **61**(8), 1--36.
 
