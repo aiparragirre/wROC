@@ -13,6 +13,7 @@ The goal of this repository is two-fold:
 
 > [!WARNING]
 > **This package is now available in CRAN as [svyROC](https://cran.r-project.org/web/packages/svyROC/index.html).**
+> **The latest updates of the package will be available hereinafter in [this GitHub repository](https://github.com/aiparragirre/svyROC)**
 
 The R package `wROC` to plot weighted estimates of the ROC curves and to obtain weighted estimates of the AUC is available in the folder `wROC`.
 
@@ -41,7 +42,10 @@ Run the following code to install the package in R (package `devtools` required 
 library(devtools)
 install_github("aiparragirre/wROC/wROC")
 ```
-**The current package has been updated on 12/25/2023. The older versions are available in the folder `old_versions`.**
+> [!CAUTION]
+> **The current package has been updated on 12/25/2023. The older versions are available in the folder `old_versions`.**
+> **The most updated version of the package is available in [this GitHub repository](https://github.com/aiparragirre/svyROC)** 
+
 
 
 ### Usage
