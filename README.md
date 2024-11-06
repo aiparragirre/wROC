@@ -11,6 +11,9 @@ The goal of this repository is two-fold:
 
 ## R package
 
+> [!WARNING]
+> **This package is now available in CRAN as [svyROC](https://cran.r-project.org/web/packages/svyROC/index.html).**
+
 The R package `wROC` to plot weighted estimates of the ROC curves and to obtain weighted estimates of the AUC is available in the folder `wROC`.
 
 The following functions are available:
